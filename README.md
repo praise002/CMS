@@ -4,3 +4,5 @@
 - django-admin startproject educa .
 - django-admin startapp courses
 - pipenv install python-dotenv
+- python manage.py makemigrations
+- python manage.py migrate
