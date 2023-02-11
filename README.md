@@ -6,3 +6,9 @@
 - pipenv install python-dotenv
 - python manage.py makemigrations
 - python manage.py migrate
+- python manage.py createsuperuser
+- python manage.py runserver
+- python manage.py dumpdata courses --indent=2
+- python manage.py dumpdata --help
+- python manage.py dumpdata courses --indent=2 --output=courses/fixtures/subjects.json
+- python manage.py loaddata subjects.json

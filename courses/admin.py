@@ -6,7 +6,6 @@ class SubjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
     
-@admin.register(Course)
 class ModuleInline(admin.StackedInline):
     model = Module
 
