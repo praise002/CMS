@@ -14,3 +14,5 @@
 - python manage.py loaddata subjects.json
 - python manage.py shell
 - python manage.py runserver
+
+- I learned how to use fixtures to provide initial data for models. By using model inheritance, you created a flexible system to    manage different types of content for the course modules. I also implemented a custom model field on order objects and created an authentication system for the e-learning platform.
