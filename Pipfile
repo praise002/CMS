@@ -8,6 +8,7 @@ django = "~=4.1.0"
 pillow = "==9.2.0"
 python-dotenv = "*"
 django-debug-toolbar = "*"
+django-braces = "==1.15.0"
 
 [dev-packages]
 

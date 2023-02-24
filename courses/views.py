@@ -1,13 +1,16 @@
 from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Count
 from django.forms.models import modelform_factory
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from . forms import ModuleFormSet
-from . models import Course, Module, Content
+from . models import Course, Module, Content, Subject
 
 
 class ManageCourseListView(ListView):
@@ -138,3 +141,41 @@ class ModuleContentListView(TemplateResponseMixin, View):
     def get(self, request, module_id):
         module = get_object_or_404(Module, id=module_id, course__owner=request.user)
         return self.render_to_response({'module': module})
+    
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):  #to update the order of course module
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Module.objects.filter(id=id, course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'ok'})
+    
+class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):  #to update the order of course module
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Content.objects.filter(id=id, module__course__owner=request.user).update(order=order)
+        return self.render_json_response({'saved': 'ok'})
+    
+    
+# class CourseListView(TemplateResponseMixin, View):  #filter by subjects if a subject slug is provided
+#     model = Course
+#     template_name = 'courses/course/list.html'
+    
+#     def get(self, request, subject=None):
+#         subjects = Subject.objects.annotate(
+#             total_courses=Count('courses')
+#         )
+#         courses = Course.objects.annotate(
+#             total_modules=Count('modules')
+#         )
+#         if subject:  #if none
+#             subject = get_object_or_404(Subject, slug=subject)
+#             courses = courses.filter(subject=subject)
+#         return self.render_to_response({
+#             'subjects': subjects, 
+#             'subject': subject, 
+#             'courses': courses
+#         })
+        
+# class CourseDetailView(DetailView):  #display only the available courses
+#     #it expects a pk or slug parameter to retrieve a single obj for the given model
+#     model = Course
+#     template_name = 'courses/course/detail.html'

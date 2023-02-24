@@ -15,5 +15,10 @@
 - python manage.py shell
 - python manage.py runserver
 - pipenv install django-debug-toolbar
+- pipenv install django-braces==1.15.0
 
 - I learned how to use fixtures to provide initial data for models. By using model inheritance, you created a flexible system to    manage different types of content for the course modules. I also implemented a custom model field on order objects and created an authentication system for the e-learning platform.
+- I learned how to use class-based views and mixins to create a content management 
+system. I also worked with groups and permissions to restrict access to your views. I learned 
+how to use formsets and model formsets to manage course modules and their content. I also built 
+a drag-and-drop functionality with JavaScript to reorder course modules and their contents.

@@ -20,9 +20,12 @@
         </ul>
     </div>
     <div id="content">
+        <!-- Allow you to insert js files to any template that extends base.html -->
         {% block content %}
         {% endblock %}
     </div>
+    {% block include_js %}
+    {% endblock %}
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // DOM loaded
