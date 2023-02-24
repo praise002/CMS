@@ -155,27 +155,27 @@ class ContentOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):  #to up
         return self.render_json_response({'saved': 'ok'})
     
     
-# class CourseListView(TemplateResponseMixin, View):  #filter by subjects if a subject slug is provided
-#     model = Course
-#     template_name = 'courses/course/list.html'
+class CourseListView(TemplateResponseMixin, View):  #filter by subjects if a subject slug is provided
+    model = Course
+    template_name = 'courses/course/list.html'
     
-#     def get(self, request, subject=None):
-#         subjects = Subject.objects.annotate(
-#             total_courses=Count('courses')
-#         )
-#         courses = Course.objects.annotate(
-#             total_modules=Count('modules')
-#         )
-#         if subject:  #if none
-#             subject = get_object_or_404(Subject, slug=subject)
-#             courses = courses.filter(subject=subject)
-#         return self.render_to_response({
-#             'subjects': subjects, 
-#             'subject': subject, 
-#             'courses': courses
-#         })
+    def get(self, request, subject=None):
+        subjects = Subject.objects.annotate(
+            total_courses=Count('courses')
+        )
+        courses = Course.objects.annotate(
+            total_modules=Count('modules')
+        )
+        if subject:  #if none, not sure
+            subject = get_object_or_404(Subject, slug=subject)
+            courses = courses.filter(subject=subject)
+        return self.render_to_response({
+            'subjects': subjects, 
+            'subject': subject, 
+            'courses': courses
+        })
         
-# class CourseDetailView(DetailView):  #display only the available courses
-#     #it expects a pk or slug parameter to retrieve a single obj for the given model
-#     model = Course
-#     template_name = 'courses/course/detail.html'
+class CourseDetailView(DetailView):  #display only the available courses
+    #it expects a pk or slug parameter to retrieve a single obj for the given model
+    model = Course
+    template_name = 'courses/course/detail.html'
