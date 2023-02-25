@@ -1,3 +1,4 @@
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Count
@@ -8,7 +9,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
+from students.forms import CourseEnrollForm
 from . forms import ModuleFormSet
 from . models import Course, Module, Content, Subject
 
@@ -179,3 +180,11 @@ class CourseDetailView(DetailView):  #display only the available courses
     #it expects a pk or slug parameter to retrieve a single obj for the given model
     model = Course
     template_name = 'courses/course/detail.html'
+    
+    def get_context_data(self, **kwargs):
+        #To include the enrollment form in d context for rendering d templates
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+            initial={'course': self.object}
+        )
+        return context

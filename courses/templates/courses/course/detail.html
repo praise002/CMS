@@ -17,6 +17,19 @@
                 </a>
             </p>
             {{ object.overview|linebreaks }}
+            <!-- If user is authenticated enrollment button is displayed else you display a link 
+            for the user to register in the platform -->
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'student_enroll_course' %}" method="post">
+                    {{ enroll_form }}
+                    {% csrf_token %}
+                    <input type="submit" value="Enroll now">
+                </form>
+            {% else %}
+                <a href="{% url 'student_registration' %}" class="button">
+                    Register to enroll
+                </a>
+            {% endif %}
         </div>
     {% endwith %}
 {% endblock %}
