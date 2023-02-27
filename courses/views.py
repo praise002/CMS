@@ -160,14 +160,14 @@ class CourseListView(TemplateResponseMixin, View):  #filter by subjects if a sub
     model = Course
     template_name = 'courses/course/list.html'
     
-    def get(self, request, subject=None):
+    def get(self, request, subject=None):  #none is d default if subject is not provided. it is falsy.
         subjects = Subject.objects.annotate(
             total_courses=Count('courses')
         )
         courses = Course.objects.annotate(
             total_modules=Count('modules')
         )
-        if subject:  #if none, not sure
+        if subject:  #if subject is provided, do this. A truthy value
             subject = get_object_or_404(Subject, slug=subject)
             courses = courses.filter(subject=subject)
         return self.render_to_response({

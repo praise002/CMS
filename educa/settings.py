@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
+from pathlib import Path
 import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -134,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = 'media/'  # base url used to serve the media files
 MEDIA_ROOT = BASE_DIR / 'media'  # local path where they reside
+
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')  #student view courses they are enrolled in
