@@ -21,6 +21,8 @@
 - docker pull memcached
 - docker run -it --rm --name memcached -p 11211:11211 memcached -m 64
 - pipenv install pymemcache==3.5.2
+- pipenv install redis==4.3.4
+- docker run -it --rm --name redis -p 6379:6379 redis
 
 - I learned how to use fixtures to provide initial data for models. By using model inheritance, you created a flexible system to    manage different types of content for the course modules. I also implemented a custom model field on order objects and created an authentication system for the e-learning platform.
 - I learned how to use class-based views and mixins to create a content management 
