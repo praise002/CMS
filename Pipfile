@@ -10,6 +10,7 @@ python-dotenv = "*"
 django-debug-toolbar = "*"
 django-braces = "==1.15.0"
 django-embed-video = "==1.4.4"
+pymemcache = "==3.5.2"
 
 [dev-packages]
 

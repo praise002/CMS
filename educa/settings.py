@@ -138,3 +138,10 @@ MEDIA_URL = 'media/'  # base url used to serve the media files
 MEDIA_ROOT = BASE_DIR / 'media'  # local path where they reside
 
 LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')  #student view courses they are enrolled in
+
+CACHES = {
+    'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+    'LOCATION': '127.0.0.1:11211',
+    }
+}
