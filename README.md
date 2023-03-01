@@ -27,8 +27,13 @@
 - pipenv install attrs
 - python manage.py migrate redisboard
 
+- pipenv install djangorestframework==3.13.1
+
 - I learned how to use fixtures to provide initial data for models. By using model inheritance, you created a flexible system to    manage different types of content for the course modules. I also implemented a custom model field on order objects and created an authentication system for the e-learning platform.
 - I learned how to use class-based views and mixins to create a content management 
 system. I also worked with groups and permissions to restrict access to your views. I learned 
 how to use formsets and model formsets to manage course modules and their content. I also built 
 a drag-and-drop functionality with JavaScript to reorder course modules and their contents.
+- I implemented the public views for the course catalog. I built a system for students to register and enroll on courses. I also created the functionality to render different types 
+of content for the course modules. Finally, I learned how to use the Django cache framework and 
+I used the Memcached and Redis cache backends for my project
