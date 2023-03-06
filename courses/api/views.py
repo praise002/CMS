@@ -1,7 +1,8 @@
-from courses.api.serializers import SubjectSerializer
+from courses.api.serializers import SubjectSerializer, CourseSerializer
 from courses.models import Subject, Course
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -23,3 +24,8 @@ class CourseEnrollView(APIView):
         course = get_object_or_404(Course, pk=pk)  #contain id of a course, course is retrieved by the pk
         course.students.add(request.user)  #add the current user
         return Response({'enrolled': True})
+    
+    
+class CourseViewSet(viewsets.ReadOnlyModelViewSet):  #provides default list() and retrieve() actions
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
