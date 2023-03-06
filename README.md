@@ -28,6 +28,7 @@
 - python manage.py migrate redisboard
 
 - pipenv install djangorestframework==3.13.1
+- pipenv install requests==2.28.1
 
 - I learned how to use fixtures to provide initial data for models. By using model inheritance, you created a flexible system to    manage different types of content for the course modules. I also implemented a custom model field on order objects and created an authentication system for the e-learning platform.
 - I learned how to use class-based views and mixins to create a content management 
