@@ -1,4 +1,5 @@
-from courses.api.serializers import SubjectSerializer, CourseSerializer
+from courses.api.permissions import IsEnrolled
+from courses.api.serializers import SubjectSerializer, CourseSerializer, CourseWithContentsSerializer
 from courses.models import Subject, Course
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
@@ -39,3 +40,11 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):  #provides default list() an
         course = self.get_object()
         course.students.add(request.user)
         return Response({'enrolled': True})
+    
+    @action(detail=True,  #action is to be performed on a single obj
+            methods=['get'], 
+            serializer_class = CourseWithContentsSerializer,
+            authentication_classes=[BasicAuthentication],
+            permission_classes=[IsAuthenticated, IsEnrolled])
+    def contents(self, request, *args, **kwargs):  #to return the course obj
+        return self.retrieve(request, *args, **kwargs)
