@@ -3,6 +3,7 @@ from courses.models import Subject, Course
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -16,6 +17,8 @@ class SubjectDetailView(generics.RetrieveAPIView):  #has a pk
     
 class CourseEnrollView(APIView):
     authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]  #only authenticated users
+    
     def post(self, request, pk, format=None):  #for post actions
         course = get_object_or_404(Course, pk=pk)  #contain id of a course, course is retrieved by the pk
         course.students.add(request.user)  #add the current user
